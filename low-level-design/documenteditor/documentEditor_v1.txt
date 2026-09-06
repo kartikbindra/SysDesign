@@ -1,12 +1,11 @@
 @startuml
 
 class DocumentEditor {
-    - vector<Element*> elements
-    + AddText(Element text)
-    + RemoveText()
-    + AddImage(Element img)
-    + RemoveImage()
+    - vector<string> elements
+    + AddText(string text)
+    + AddImage(string imgPath)
     + RenderDocument()
+    + SaveToDB()
 }
 
 @enduml

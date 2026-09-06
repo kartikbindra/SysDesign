@@ -1,0 +1,65 @@
+@startuml
+
+skinparam linetype ortho
+
+interface DocumentElement
+
+class Text {
+    - content : string
+}
+
+class Image {
+    - path : string
+}
+
+interface Persistence {
+    + save(document : Document)
+}
+
+class DBStorage {
+    + save(document : Document)
+}
+
+class FileStorage {
+    + save(document : Document)
+}
+
+class Document {
+    - elements : vector<DocumentElement>
+    + addElement(element : DocumentElement)
+    + removeElement(id : int)
+    + getElements() : vector<DocumentElement>
+}
+
+class DocumentRenderer {
+    + render(document : Document)
+}
+
+class DocumentEditor {
+    - document : Document
+    - renderer : DocumentRenderer
+    - storage : Persistence
+
+    + addText(content : string)
+    + addImage(path : string)
+    + removeElement(id : int)
+    + render()
+    + save()
+}
+
+
+Text ..|> DocumentElement
+Image ..|> DocumentElement
+
+DBStorage ..|> Persistence
+FileStorage ..|> Persistence
+
+Document *--  DocumentElement
+
+DocumentEditor --> Document
+DocumentEditor --> DocumentRenderer
+DocumentEditor --> Persistence
+
+DocumentRenderer --> Document
+
+@enduml
